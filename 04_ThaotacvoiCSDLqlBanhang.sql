@@ -25,6 +25,8 @@ and od.productid = p.productid;
 select cusname from customer
 where customer.cusid not in (select cusid from ordercustomer);
 
-select oc.orderID, oc.orderdate, orderquantity*productprice as ordertotalprice
+select oc.orderID, oc.orderdate, sum(orderquantity*productprice) as ordertotalprice
 from ordercustomer oc, orderdetail od, product p
-where oc.orderID = od.orderID and od.productID = p.productid;
+where oc.orderID = od.orderID and od.productID = p.productid
+group by oc.orderID;
+
